@@ -78,7 +78,6 @@ Button(text="Получить курс обмена", command=exchange).pack(pad
 window.mainloop()
 
 
-
 # result = requests.get('https://open.er-api.com/v6/latest/USD')
 # data = json.loads(result.text)
 # p = pprint.PrettyPrinter(indent=4)
