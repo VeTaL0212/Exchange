@@ -30,15 +30,19 @@ def exchange():
 
     if t_code and b1_code and b2_code:
         try:
-            response = requests.get(f"https://open.er-api.com/v6/latest/{b1_code}") # Для получения данных с сервера используется метод `get` библиотеки requests
+            response = requests.get(f"https://open.er-api.com/v6/latest/{b1_code}")
+            response2 = requests.get(f"https://open.er-api.com/v6/latest/{b2_code}")# Для получения данных с сервера используется метод `get` библиотеки requests
             response.raise_for_status() # метод `raise_for_status()` в библиотеке requests  Устанавливает статус-код ответа
+            response2.raise_for_status()
             data = response.json() # раскладываем в виде обычного python словаря
+            data2 = response2.json()
             if t_code in data["rates"]:
                 exchange_rate = data['rates'][t_code]
+                exchange2_rate = data2['rates'][t_code]
                 t_name = cur[t_code]
                 b1_name = cur[b1_code]
                 b2_name = cur[b2_code]
-                mb.showinfo("Курс обмена", f"Курс: {exchange_rate:.2f} {t_name} за один {b1_name}")
+                mb.showinfo("Курс обмена", f"Курс: {exchange_rate:.2f} {t_name} за один {b1_name} \n и {exchange2_rate:.2f} {t_name} за один {b2_name}")
             else:
                 mb.showerror("Ошибка", f"Валюта {t_code} не найдена!")
         except Exception as e:
